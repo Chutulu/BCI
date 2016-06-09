@@ -1,0 +1,16 @@
+with "/Volumes/Kingston/GPS/Library/xnadalib-2015/share/gpr/gnoga.gpr";
+
+project Generateur_Trame_VT2_GUI is
+
+   for Source_Dirs use ("/Volumes/Kingston/GPS/BCI/src", "/Volumes/Kingston/GPS/Library/pragmarc", "/Volumes/Kingston/GPS/Library/dates");
+   for Object_Dir use "/Volumes/Kingston/GPS/BCI/obj/";
+   for Exec_Dir use "/Volumes/Kingston/GPS/BCI/bin/";
+   for Main use ("generateur_trame_vt2_gui.adb");
+
+
+   package Ide is
+      for Documentation_Dir use "/Volumes/Kingston/GPS/BCI/doc/";
+   end Ide;
+
+end Generateur_Trame_VT2_GUI;
+

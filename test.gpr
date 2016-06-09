@@ -1,0 +1,10 @@
+with "/Volumes/Kingston/GPS/Library/xnadalib-2015/share/gpr/gnoga.gpr";
+project Test is
+
+   for Source_Dirs use ("src", "../Library/dates", "../Library/pragmarc");
+   for Main use ("test_UB.adb");
+   for Object_Dir use "obj/";
+   for Exec_Dir use "bin/";
+
+end Test;
+

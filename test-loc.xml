@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<Locations>
+  <Project>
+    <vfs_file />
+    <file_marker column=" 1" line=" 71" >
+      <vfs_project />
+      <vfs_file>/Volumes/Kingston/GPS/BCI/src/import_bci.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 27" line=" 45" >
+      <vfs_project />
+      <vfs_file>/Volumes/Kingston/GPS/Library/dates/dates.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 285" >
+      <vfs_project />
+      <vfs_file>/Volumes/Kingston/GPS/Library/dates/dates.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/Volumes/Kingston/GPS/BCI/src/generateur_trame_vt2.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 19" line=" 39" >
+      <vfs_project />
+      <vfs_file>/Volumes/Kingston/GPS/Library/dates/dates-io.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 42" line=" 41" >
+      <vfs_project />
+      <vfs_file>/Volumes/Kingston/GPS/BCI/src/import_bci.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 42" line=" 80" >
+      <vfs_project />
+      <vfs_file>/Volumes/Kingston/GPS/BCI/src/import_bci.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 76" >
+      <vfs_project />
+      <vfs_file>/Volumes/Kingston/GPS/BCI/src/import_bci.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 49" line=" 80" >
+      <vfs_project />
+      <vfs_file>/Volumes/Kingston/GPS/BCI/src/import_bci.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 24" line=" 13" >
+      <vfs_project />
+      <vfs_file>/Volumes/Kingston/GPS/BCI/src/test.adb</vfs_file>
+    </file_marker>
+    <file_marker current="true" column=" 1" line=" 8" >
+      <vfs_project />
+      <vfs_file>/Volumes/Kingston/GPS/BCI/import_bci_data.gpr</vfs_file>
+    </file_marker>
+  </Project>
+</Locations>

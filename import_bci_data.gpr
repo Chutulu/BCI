@@ -1,0 +1,15 @@
+with "/Volumes/Kingston/GPS/Library/xnadalib-2015/share/gpr/gnoga.gpr";
+
+project Import_BCI_Data is
+   for Source_Dirs use ("src", "../Library/dates", "../Library/pragmarc");
+   for Object_Dir use "obj/";
+   for Exec_Dir use "bin/";
+   for Main use ("import_bci.adb");
+
+
+   package Ide is
+      for Documentation_Dir use "doc/";
+   end Ide;
+
+end Import_BCI_Data;
+
