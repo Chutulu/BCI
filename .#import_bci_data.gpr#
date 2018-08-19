@@ -1,4 +1,4 @@
--- with "/Volumes/Kingston/GPS/Library/xnadalib-2016/share/gpr/gnoga.gpr";
+with "/Volumes/Kingston/GPS/Library/xnadalib-2016/share/gpr/gnoga.gpr";
 
 project Import_BCI_Data is
 

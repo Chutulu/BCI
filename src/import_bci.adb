@@ -1,3 +1,5 @@
+-- 9.8.2017: modified to take care of additional EOL
+
 with Ada.Exceptions;
 with Ada.Integer_Text_IO;
 with Ada.IO_Exceptions;
@@ -18,11 +20,17 @@ procedure Import_BCI is
    -- Length of the pesky time stamp which contaminates every single line
    T_Stamp : constant Positive := 37;
 
+   -- additional line endings, if true the logfile has an additional and visible
+   -- line ending in the form of <CR><LF>
+   Additional_EOL: Boolean:= True;
+   Additinal_EOL_Lenght: constant Positive := 8;
+
    type File_Kind is (Save, Log);
 
    Log_File  : PragmARC.Text_IO.File_Handle;
    Save_File : PragmARC.Text_IO.File_Handle;
 
+   -- character used to separate the different values in the CSV file
    CSV_Sep_Char : constant String := ";";
 
    use type Dates.Object;
@@ -68,6 +76,8 @@ procedure Import_BCI is
    A3       : constant String := "a3"; -- final result
    ZZ       : constant String := "zz"; -- end message
 
+   -- Debug: Boolean:= False; uncomment the blocks commented with "debugging"
+
    ------------------
    -- Read_Message --
    ------------------
@@ -82,15 +92,19 @@ procedure Import_BCI is
       while not Has_Finished loop
          declare
             S     : String := PragmARC.Text_IO.Get_Line (File => File);
-            Line  : String (1 .. S'Length - T_Stamp); -- removes this useless timestamp
+            -- this useless timestamp wastes only space
+            Line  : String (1 .. S'Length - T_Stamp);
 
          begin -- declare
 
-            Line (1 .. Line'Last) := S (T_Stamp + 1 .. S'Last);
+            Line (1 .. Line'Last) := S (T_Stamp + 1 .. S'Last );
 
-            -- Text_IO.Put_Line ("Line: " & Line);
-            -- Text_IO.Put_Line ("Line'Length" & Integer'Image (Line'Length));
-            -- Text_IO.Put_Line ("Line'Last" & Integer'Image (Line'Last));
+            -- debugging
+            -- if Debug = True then
+               -- Ada.Text_IO.Put_Line ("Line: " & Line);
+               -- Ada.Text_IO.Put_Line ("Line'Length" & Integer'Image (Line'Length));
+               -- Ada.Text_IO.Put_Line ("Line'Last" & Integer'Image (Line'Last));
+            -- end if;
 
             if Line (1 .. 5) = EOT then
                -- we have reached the end of the message so we can exit the loop
@@ -112,8 +126,13 @@ procedure Import_BCI is
             elsif Line (1 .. 4) = RS -- so Line contains <RS> which indicates
             -- the begin of a message
             then -- we have to take care of those lines
-               U_B.Append (Source   => Buffer,
-                           New_Item => Line (5 .. Line'Last));
+               if Additional_EOL = True then
+                  U_B.Append (Source   => Buffer,
+                              New_Item => Line (5 .. Line'Last- Additinal_EOL_Lenght));
+               else
+                  U_B.Append (Source   => Buffer,
+                              New_Item => Line (5 .. Line'Last));
+               end if;
 
             else -- Line contains garbage
                null; -- who cares?
@@ -142,7 +161,10 @@ procedure Import_BCI is
       Current := 1;
       Last := 0;
 
-      -- Text_IO.Put_Line ("<Line> " & Line & " <Line/>");
+      -- debugging
+      -- if Debug = True then
+         -- Ada.Text_IO.Put_Line ("<Line> " & Line & " <Line/>");
+      -- end if;
 
       while Current <= Line'Last loop
 
@@ -152,7 +174,11 @@ procedure Import_BCI is
                Token : String (Last + 1 .. Current - 1);
             begin -- declare
                Token := Line (Last + 1 .. Current - 1);
-               -- Text_IO.Put_Line ("<Token> " & Token & " <Token/>");
+
+               -- debugging
+               -- if Debug = True then
+                  -- Ada.Text_IO.Put_Line ("<Token> " & Token & " <Token/>");
+               -- end if;
 
                if Line (1 .. 5) = MTMPR -- contains mtmpr
                then -- no need/place for this info atm
@@ -250,7 +276,7 @@ begin -- Main
 
       BCI_Log_File_Name : String := "vba-20150119.log"; -- too lazy to count the lenght of the file name
       -- to remember the name format
-      Save_File_Name    : String := "20150101-20150331.csv"; -- save name composed of begin date to end date
+      Save_File_Name    : String := "20150101-20150331.csv"; -- save file  name composed of begin date to end date
 
       Temp_Date         : Dates.Object;
 
@@ -267,7 +293,8 @@ begin -- Main
       -- open the save file and associate it with the file variable name
       PragmARC.Text_IO.Create (File => Save_File,
                                Mode => PragmARC.Text_IO.Out_File,
-                               Name => Save_File_Name);
+                               Name => Save_File_Name,
+                               EOL  => PragmARC.Text_IO.Unix_EOL);
 
       Main : loop
          begin -- exception handling

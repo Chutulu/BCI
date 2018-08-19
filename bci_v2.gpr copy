@@ -1,0 +1,59 @@
+--with "/Volumes/Kingston/GPS/gnat/share/gpr/gnoga.gpr";
+with "gnoga.gpr";
+
+project Bci_V2 is
+
+   for Source_Dirs use ("src");
+   for Object_Dir use "obj/";
+   for Exec_Dir use "bin/";
+   for Main use ("test.adb");
+   type Build_Kind is
+      ("default");
+   Lib_Components_Build : Build_Kind := external ("LIB_COMPONENTS_BUILD");
+   type Build_Kind1 is
+      ("default");
+   Gnoga_Build : Build_Kind1 := external ("GNOGA_BUILD");
+
+   case Lib_Components_Build is
+
+      when "default" =>
+
+         case Gnoga_Build is
+
+            when "default" =>
+               for Source_Dirs use ("src_2");
+         end case;
+   end case;
+
+   package Ide is
+      for Documentation_Dir use "doc/";
+
+      case Lib_Components_Build is
+
+         when "default" =>
+
+            case Gnoga_Build is
+
+               when "default" =>
+                  for Vcs_Kind use "Git";
+                  for Vcs_Repository_Root use "https://github.com/Chutulu/BCI_2.git";
+            end case;
+      end case;
+   end Ide;
+
+   package Compiler is
+
+      case Lib_Components_Build is
+
+         when "default" =>
+
+            case Gnoga_Build is
+
+               when "default" =>
+                  for Switches ("ada") use ("-gnato", "-fstack-check", "-gnat12", "-gnatwfu", "-gnatVr", "-gnatyabBCeikrsStux");
+            end case;
+      end case;
+   end Compiler;
+
+end Bci_V2;
+
